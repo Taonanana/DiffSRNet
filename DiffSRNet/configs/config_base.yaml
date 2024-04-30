@@ -1,0 +1,42 @@
+# task
+binary_data_dir: ''
+work_dir: '' # experiment directory.
+infer: false # infer
+seed: 1234
+debug: false
+save_codes:
+  - configs
+  - models
+  - tasks
+  - utils
+
+#############
+# dataset
+#############
+ds_workers: 1
+endless: false
+
+#########
+# train and eval
+#########
+print_nan_grads: false #控制是否打印包含NaN值的梯度信息。当为True时，会在训练过程中打印包含NaN值的梯度信息。
+load_ckpt: ''
+save_best: true #控制是否只保存最佳模型检查点。当为True时，仅保存在验证集上表现最佳的模型检查点。
+num_ckpt_keep: 100 #保留的最新模型检查点数量。 
+clip_grad_norm: 0 #用于控制梯度剪裁的阈值。如果梯度的L2范数超过此阈值，则会进行剪裁以防止梯度爆炸。
+accumulate_grad_batches: 1  #梯度积累的批次数。在一次参数更新之前，将梯度累积的批次数。
+tb_log_interval: 100  #TensorBoard日志记录的间隔步数。每隔指定步数，将训练指标记录到TensorBoard中。
+num_sanity_val_steps: 5  # steps of validation at the beginning 在训练开始时进行的验证步骤数。用于验证代码是否能够正常运行。
+check_val_every_n_epoch: 10 #控制每隔多少个epoch进行一次验证
+# val_check_interval: 4000
+val_check_interval: 150 #验证间隔步数。每隔指定步数，进行一次验证。
+valid_monitor_key: 'val_loss' #用于监视验证指标的指标名称
+valid_monitor_mode: 'min' #验证监视指标的模式。可选的值有'min'（最小化）和'max'（最大化）
+max_epochs: 1000  #最大训练轮数
+max_updates: 600000 #最大训练更新步数
+amp: false  #控制是否使用自动混合精度（Automatic Mixed Precision）训练。当为True时，使用混合精度进行训练以提高训练速度和显存利用率。
+batch_size: 32
+eval_batch_size: 32
+num_workers: 8  #用于数据加载的工作进程数量
+test_input_dir: ''  #测试输入图像的目录路径
+resume_from_checkpoint: 0 #从指定的检查点步数开始训练
